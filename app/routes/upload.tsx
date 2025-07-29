@@ -1,5 +1,6 @@
 import { prepareInstructions } from 'constants/index';
 import React, { useState, type FormEvent } from 'react'
+import { useNavigate } from 'react-router';
 import FileUploader from '~/components/FileUploader';
 import NavBar from '~/components/NavBar'
 import { convertPdfToImage } from '~/lib/pdf2image';
@@ -11,6 +12,7 @@ const Upload = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [statusText, setStatusText] = useState('');
   const [file, setFile] = useState<File | null>(null)
+  const navigate = useNavigate();
 
   const handleFileSelect = (file: File | null) => {
     setFile(file);
@@ -54,6 +56,7 @@ const Upload = () => {
 
     setStatusText("Analysis complete, redirecting");
     console.log(data);
+    navigate(`/resume/${uuid}`);
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
